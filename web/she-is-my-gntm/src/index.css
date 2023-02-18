@@ -81,7 +81,10 @@ section.slider {
 
 section.voting {
     width: 100vw;
+    display: flex;
+    flex-flow: row nowrap;
     overflow-x: scroll;
+    scroll-snap-type: x mandatory;
 }
 
 .voting-list {
@@ -97,7 +100,9 @@ section.voting {
     grid-template-columns: 1.5fr 3fr 1.55fr;
     align-content: end;
     height: 100%;
-    width: 100vw;
+    width: 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
 }
 
 .model-name {
@@ -110,10 +115,11 @@ section.voting {
 }
 
 .model-name h2 {
+    --parallax-x: 0;
     color: white;
     text-align: center;
     font-size: 45rem;
-    transform: scale(.3);
+    transform: translateX(var(--parallax-x)) scale(.3);
     font-weight: 600;
     line-height: 14rem;
     margin: 0;
