@@ -1,10 +1,10 @@
 import './App.css';
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect} from "react";
 
 function App() {
-    const [votingEl,] = useState(document.getElementsByClassName('voting')[0]);
-
     const animationCallback = useCallback(() => {
+        const votingEl = document.getElementsByClassName('voting')[0];
+
         for (let i = 0; i < votingEl.children.length; i++) {
             const modelNameEl = votingEl.children[i].querySelector('.model-name h2');
             const parallax_x = -votingEl.scrollLeft * 0.25 + i * window.innerWidth * 0.25;
