@@ -92,12 +92,12 @@ section.voting {
 .model-name h2 {
     color: white;
     text-align: center;
-    font-size: 25rem;
-    transform: scale(.6);
+    font-size: 45rem;
+    transform: scale(.3);
     font-weight: 600;
     line-height: 14rem;
     margin: 0;
-    text-shadow: 0 0 57px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 57px rgba(255, 255, 255, 0.6);
 
 }
 
