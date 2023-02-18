@@ -118,8 +118,8 @@ section.voting {
     --parallax-x: 0;
     color: white;
     text-align: center;
-    font-size: 45rem;
-    transform: translateX(var(--parallax-x)) scale(.3);
+    font-size: 13rem;
+    transform: translateX(var(--parallax-x));
     font-weight: 600;
     line-height: 14rem;
     margin: 0;
