@@ -32,13 +32,17 @@ body {
     backdrop-filter: blur(44px);
 }
 
-.vote-color {
+.background-blur:after {
+    content: "";
     position: absolute;
     z-index: -1;
     width: 100vw;
     height: 70vh;
     bottom: 0;
     background: linear-gradient(180deg, hsla(40, 100%, 44%, 0) 0%, hsla(126, 100%, 47%, 0.55) 100%);
+}
+
+.vote-color {
 }
 
 h1 {
