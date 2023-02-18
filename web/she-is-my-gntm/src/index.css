@@ -227,6 +227,7 @@ section.ranking {
     object-fit: cover;
     object-position: top;
     border-radius: 1.5rem;
+    overflow: hidden;
     transform: scale(1.75) translateY(15%);
 }
 
