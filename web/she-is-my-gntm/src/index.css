@@ -92,11 +92,13 @@ section.voting {
 .model-name h2 {
     color: white;
     text-align: center;
-    font-size: 15rem;
+    font-size: 10rem;
+    transform: scale(1.5);
     font-weight: 600;
     line-height: 14rem;
     margin: 0;
     text-shadow: 0 0 57px rgba(255, 255, 255, 0.62);
+
 }
 
 .model-image {
