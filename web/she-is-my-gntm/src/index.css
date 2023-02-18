@@ -36,7 +36,8 @@ body {
     content: "";
     position: absolute;
     z-index: -1;
-    inset: 0;
+    height: 100%;
+    width: 100%;
     background: linear-gradient(180deg, hsla(40, 100%, 44%, 0) 0%, hsla(126, 100%, 47%, 0.55) 70%, hsla(126, 100%, 47%, 0.55) 100%);
 }
 
