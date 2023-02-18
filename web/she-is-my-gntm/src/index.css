@@ -135,6 +135,7 @@ section.voting {
     background: none;
     border: none;
     padding: 0;
+    outline: none;
 }
 
 .voting-button svg {
@@ -146,6 +147,11 @@ section.voting {
 .voting-button:nth-of-type(1) {
     --vote-color: #D00000;
     --signX: -1;
+}
+
+.voting-button:active, .voting-button:hover {
+    background: none;
+    outline: none;
 }
 
 .voting-button:active svg {
