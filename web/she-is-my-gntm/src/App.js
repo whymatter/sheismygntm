@@ -3,13 +3,14 @@ import './App.css';
 function App() {
     return (
         <div className="wrapper">
+            <div></div>
 
-            <section className="header">
-                <h1>
-                    SHE IS MY<br/>
-                    <span className="header-gntm">GNTM</span>
-                </h1>
-            </section>
+            {/*<section className="header">*/}
+            {/*    <h1>*/}
+            {/*        SHE IS MY<br/>*/}
+            {/*        <span className="header-gntm">GNTM</span>*/}
+            {/*    </h1>*/}
+            {/*</section>*/}
 
             <section className="slider">
                 <div className="slider-line"></div>
