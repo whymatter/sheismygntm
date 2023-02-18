@@ -80,9 +80,24 @@ section.slider {
 }
 
 section.voting {
+    width: 100vw;
+    overflow-x: scroll;
+}
+
+.voting-list {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: calc(100vw * 2);
+}
+
+.voting-item {
+    position: relative;
     display: grid;
     grid-template-columns: 1.5fr 3fr 1.55fr;
     align-content: end;
+    height: 100%;
+    width: 100vw;
 }
 
 .model-name {
