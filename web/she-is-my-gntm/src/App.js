@@ -115,8 +115,8 @@ function App() {
 
             </section>
 
-            <div className="vote-color"></div>
-            <div className="background-blur"></div>
+            {/*<div className="vote-color"></div>*/}
+            {/*<div className="background-blur"></div>*/}
         </div>
     );
 }
