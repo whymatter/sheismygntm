@@ -215,6 +215,7 @@ section.ranking {
 
 .ranking-image {
     width: 3.25rem;
+    isolation: isolate;
     aspect-ratio: 1 / 1;
     border: 1px solid #B0A900;
     border-radius: 1.5rem;
