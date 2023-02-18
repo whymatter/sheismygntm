@@ -1,10 +1,10 @@
 import './App.css';
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 function App() {
-    const animationCallback = useCallback(() => {
-        const votingEl = document.getElementsByClassName('voting')[0];
+    const [votingEl,] = useState(document.getElementsByClassName('voting')[0]);
 
+    const animationCallback = useCallback(() => {
         for (let i = 0; i < votingEl.children.length; i++) {
             const modelNameEl = votingEl.children[i].querySelector('.model-name h2');
             const parallax_x = -votingEl.scrollLeft * 0.25 + i * window.innerWidth * 0.25;
@@ -59,7 +59,7 @@ function App() {
                 </div>
                 <div className="voting-item">
                     <div className="model-name">
-                        <h2>Eliz</h2>
+                        <h2>Somajia</h2>
                     </div>
                     <button className="voting-button">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
