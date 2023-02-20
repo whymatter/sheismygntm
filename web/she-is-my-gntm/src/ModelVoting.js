@@ -55,9 +55,9 @@ export function ModelVoting({modelId, onNewPoints}) {
 
     return (
         <div className="voting-item">
-            <div className="model-name">
-                <h2>{modelName}</h2>
-            </div>
+            {/*<div className="model-name">*/}
+            {/*    <h2>{modelName}</h2>*/}
+            {/*</div>*/}
             <div className="voting-button red" onClick={() => voteCallback(-1)}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path

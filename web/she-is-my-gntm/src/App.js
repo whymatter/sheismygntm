@@ -1,5 +1,5 @@
 import './App.css';
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import {ModelVoting} from "./ModelVoting";
 import {modelConfig} from "./modelConfig";
 
@@ -8,21 +8,21 @@ const models = Object.keys(modelConfig);
 function App() {
     const [modelPoints, setModelPoints] = useState(models.reduce((a, b) => ({...a, [b]: 0}), {}));
 
-    const animationCallback = useCallback(() => {
-        const votingEl = document.getElementsByClassName('voting')[0];
+    // const animationCallback = useCallback(() => {
+    //     const votingEl = document.getElementsByClassName('voting')[0];
+    //
+    //     for (let i = 0; i < votingEl.children.length; i++) {
+    //         const modelNameEl = votingEl.children[i].querySelector('.model-name h2');
+    //         const parallax_x = -votingEl.scrollLeft * 0.25 + i * window.innerWidth * 0.25;
+    //         modelNameEl.style.setProperty('--parallax-x', `${parallax_x}px`);
+    //     }
+    //
+    //     requestAnimationFrame(animationCallback);
+    // }, []);
 
-        for (let i = 0; i < votingEl.children.length; i++) {
-            const modelNameEl = votingEl.children[i].querySelector('.model-name h2');
-            const parallax_x = -votingEl.scrollLeft * 0.25 + i * window.innerWidth * 0.25;
-            modelNameEl.style.setProperty('--parallax-x', `${parallax_x}px`);
-        }
-
-        requestAnimationFrame(animationCallback);
-    }, []);
-
-    useEffect(() => {
-        requestAnimationFrame(animationCallback);
-    }, [animationCallback]);
+    // useEffect(() => {
+    //     requestAnimationFrame(animationCallback);
+    // }, [animationCallback]);
 
     const onNewPoints = useCallback(({modelId, points}) => {
         setModelPoints(state => ({...state, [modelId]: points}));
