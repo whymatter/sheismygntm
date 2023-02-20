@@ -1,12 +1,13 @@
 import {modelConfig} from "./modelConfig";
 import {useCallback, useEffect, useState} from "react";
 import {database} from "./firebaseInit";
-import {ref, push, onChildAdded, limitToLast, query} from "firebase/database";
+import {ref, push, onChildAdded, limitToLast, query, get} from "firebase/database";
 import {AnimatedVote} from "./AnimatedVote";
 
-export function ModelVoting({modelId}) {
+export function ModelVoting({modelId, onNewPoints}) {
     const modelName = modelConfig[modelId]?.name;
-    const [, setVotes] = useState(0);
+    const [votes, setVotes] = useState(0);
+    const [voteCount, setVoteCount] = useState(0);
     const [animatedVotes, setAnimatedVotes] = useState([]);
 
     const voteCallback = useCallback((voteValue) => {
@@ -17,19 +18,32 @@ export function ModelVoting({modelId}) {
     useEffect(() => {
         const modelRef = ref(database, `votes/${modelId}`);
 
-        const clean = onChildAdded(modelRef, (data) => {
-            setVotes(state => state + data.val());
+        get(modelRef).then(value => {
+            if (value == null || !value.exists()) return;
+            const values = Object.values(value.val());
+            const votes = values.reduce((a, b) => a + b, 0);
+            const voteCount = values.length;
+
+            setVotes(votes);
+            setVoteCount(voteCount);
         });
 
-        const clean2 = onChildAdded(query(modelRef, limitToLast(1)), (data) => {
+        const clean = onChildAdded(query(modelRef, limitToLast(1)), (data) => {
             setAnimatedVotes(state => [...state, {voteValue: data.val(), id: data.key, timestamp: Date.now()}]);
+            setVotes(state => state + data.val());
+            setVoteCount(state => state + 1);
         });
 
         return () => {
             clean();
-            clean2();
         };
     }, [modelId]);
+
+    useEffect(() => {
+        const points = voteCount === 0 ? 0 :
+            (votes + voteCount) / 2 / voteCount * 10;
+        onNewPoints?.({modelId, points});
+    }, [votes, voteCount, modelId]);
 
     // Remove old AnimatedVotes
     useEffect(() => {

@@ -1,11 +1,13 @@
 import './App.css';
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {ModelVoting} from "./ModelVoting";
 import {modelConfig} from "./modelConfig";
 
 const models = Object.keys(modelConfig);
 
 function App() {
+    const [modelPoints, setModelPoints] = useState(models.reduce((a, b) => ({...a, [b]: 0}), {}));
+
     const animationCallback = useCallback(() => {
         const votingEl = document.getElementsByClassName('voting')[0];
 
@@ -21,6 +23,12 @@ function App() {
     useEffect(() => {
         requestAnimationFrame(animationCallback);
     }, [animationCallback]);
+
+    const onNewPoints = useCallback(({modelId, points}) => {
+        setModelPoints(state => ({...state, [modelId]: points}));
+    }, []);
+
+    const modelRanking = useMemo(() => Object.entries(modelPoints).sort((a, b) => b[1] - a[1]), [modelPoints]);
 
     return (
         <div className="wrapper">
@@ -38,80 +46,31 @@ function App() {
             </section>
 
             <section className="voting">
-                {models.map((modelId) => <ModelVoting key={modelId} modelId={modelId} />)}
+                {models.map((modelId) => <ModelVoting onNewPoints={onNewPoints} key={modelId} modelId={modelId}/>)}
             </section>
 
             <section className="ranking">
 
                 <div className="ranking-list">
 
-                    <div className="ranking-row">
-                        <div className="ranking-left">
-                            <div className="ranking-image">
-                                <img src="/models/eliz.webp" alt="Image of model Eliz"/>
+                    {modelRanking.map(([modelId, points], i) =>
+                        <div className="ranking-row">
+                            <div className="ranking-left">
+                                <div className="ranking-image">
+                                    <img src={`/models/${modelId}.webp`} alt="Image of model Eliz"/>
+                                </div>
+                                <div className="ranking-model-name">
+                                    <span className="ranking-rank">#{i + 1}</span>
+                                    <span> </span>
+                                    <span className="ranking-name">{modelConfig[modelId]?.name}</span>
+                                </div>
                             </div>
-                            <div className="ranking-model-name">
-                                <span className="ranking-rank">#1</span>
-                                <span> </span>
-                                <span className="ranking-name">Eliz</span>
-                            </div>
-                        </div>
-                        <div className="ranking-right">
-                            <span className="ranking-value">8.5</span>
-                            <span className="ranking-reference">/10</span>
-                        </div>
-                    </div>
-
-                    <div className="ranking-row">
-                        <div className="ranking-left">
-                            <div className="ranking-image">
-                                <img src="/models/eliz.webp" alt="Image of model Eliz"/>
-                            </div>
-                            <div className="ranking-model-name">
-                                <span className="ranking-rank">#1</span>
-                                <span> </span>
-                                <span className="ranking-name">Eliz</span>
+                            <div className="ranking-right">
+                                <span className="ranking-value">{Math.round(points * 10) / 10}</span>
+                                <span className="ranking-reference">/10</span>
                             </div>
                         </div>
-                        <div className="ranking-right">
-                            <span className="ranking-value">8.5</span>
-                            <span className="ranking-reference">/10</span>
-                        </div>
-                    </div>
-
-                    <div className="ranking-row">
-                        <div className="ranking-left">
-                            <div className="ranking-image">
-                                <img src="/models/eliz.webp" alt="Image of model Eliz"/>
-                            </div>
-                            <div className="ranking-model-name">
-                                <span className="ranking-rank">#1</span>
-                                <span> </span>
-                                <span className="ranking-name">Eliz</span>
-                            </div>
-                        </div>
-                        <div className="ranking-right">
-                            <span className="ranking-value">8.5</span>
-                            <span className="ranking-reference">/10</span>
-                        </div>
-                    </div>
-
-                    <div className="ranking-row">
-                        <div className="ranking-left">
-                            <div className="ranking-image">
-                                <img src="/models/eliz.webp" alt="Image of model Eliz"/>
-                            </div>
-                            <div className="ranking-model-name">
-                                <span className="ranking-rank">#1</span>
-                                <span> </span>
-                                <span className="ranking-name">Eliz</span>
-                            </div>
-                        </div>
-                        <div className="ranking-right">
-                            <span className="ranking-value">8.5</span>
-                            <span className="ranking-reference">/10</span>
-                        </div>
-                    </div>
+                    )}
 
                 </div>
 

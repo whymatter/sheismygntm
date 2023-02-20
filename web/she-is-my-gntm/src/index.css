@@ -171,7 +171,7 @@ section.voting {
     --randomX: 0;
     --randomY: 0;
     background-image: url('/public/icons/thumbs-down-regular-red.svg');
-    width: 2rem;
+    width: 1rem;
     isolation: isolate;
     aspect-ratio: 1 / 1;
     position: absolute;
@@ -207,11 +207,6 @@ section.voting {
 .voting-button.green {
     --vote-color: #05F000;
     --signY: -1;
-}
-
-.voting-button:active, .voting-button:hover {
-    background: none;
-    outline: none;
 }
 
 .voting-button:active svg {
