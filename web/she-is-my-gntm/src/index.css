@@ -165,7 +165,6 @@ section.voting {
     border: none;
     padding: 0;
     outline: none;
-    align-items: center;
 }
 
 .animated-vote {
@@ -192,6 +191,8 @@ section.voting {
 }
 
 .voting-button svg {
+    position: absolute;
+    bottom: 6rem;
     fill: white;
     filter: drop-shadow(0px calc(var(--signY) * .25rem) .25rem var(--vote-color));
     transform: translateX(calc(var(--signX) * -.75rem)) translateY(45%) scaleY(var(--signY)) scaleX(var(--signX));
