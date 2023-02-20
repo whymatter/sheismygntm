@@ -84,7 +84,7 @@ section.voting {
     display: flex;
     flex-flow: row nowrap;
     overflow-x: scroll;
-    /*scroll-snap-type: x mandatory;*/
+    scroll-snap-type: x mandatory;
 }
 
 .voting-list {
@@ -102,7 +102,7 @@ section.voting {
     height: 100%;
     width: 100%;
     min-width: 100%;
-    /*scroll-snap-align: start;*/
+    scroll-snap-align: center;
 }
 
 .model-name {
