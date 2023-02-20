@@ -165,7 +165,6 @@ section.voting {
     border: none;
     padding: 0;
     outline: none;
-    display: flex;
     align-items: center;
 }
 
@@ -204,6 +203,11 @@ section.voting {
     --signX: -1;
 }
 
+.voting-button.green {
+    --vote-color: #05F000;
+    --signY: -1;
+}
+
 .voting-button:active, .voting-button:hover {
     background: none;
     outline: none;
@@ -212,11 +216,6 @@ section.voting {
 .voting-button:active svg {
     filter: drop-shadow(0px calc(var(--signY) * .25rem) .75rem var(--vote-color));
     fill: var(--vote-color);
-}
-
-.voting-button.green {
-    --vote-color: #05F000;
-    --signY: -1;
 }
 
 section.ranking {
