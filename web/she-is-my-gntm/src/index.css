@@ -165,6 +165,8 @@ section.voting {
     border: none;
     padding: 0;
     outline: none;
+    display: flex;
+    align-items: center;
 }
 
 .animated-vote {
@@ -197,7 +199,7 @@ section.voting {
     transition: .2s ease-in-out;
 }
 
-.voting-button:nth-of-type(1) {
+.voting-button.red {
     --vote-color: #D00000;
     --signX: -1;
 }
@@ -212,7 +214,7 @@ section.voting {
     fill: var(--vote-color);
 }
 
-.voting-button:nth-of-type(2) {
+.voting-button.green {
     --vote-color: #05F000;
     --signY: -1;
 }
