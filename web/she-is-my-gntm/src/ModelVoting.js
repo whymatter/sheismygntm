@@ -44,7 +44,7 @@ export function ModelVoting({modelId}) {
             <div className="model-name">
                 <h2>{modelName}</h2>
             </div>
-            <button className="voting-button" onClick={() => voteCallback(-1)}>
+            <input type="button" className="voting-button" onClick={() => voteCallback(-1)}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path
                         color="currentColor"
@@ -52,7 +52,7 @@ export function ModelVoting({modelId}) {
                 </svg>
                 {animatedVotes.filter(o => o.voteValue === -1).map(o => <AnimatedVote key={o.id}
                                                                                       voteValue={o.voteValue}/>)}
-            </button>
+            </input>
             <div className="model-image">
                 <img src={`/models/${modelId}.webp`} alt={`Image of model ${modelName}`}/>
             </div>
