@@ -4,16 +4,18 @@ import {database} from "./firebaseInit";
 import {ref, push, onChildAdded, limitToLast, query, get} from "firebase/database";
 import {AnimatedVote} from "./AnimatedVote";
 
-export function ModelVoting({modelId, onNewPoints}) {
+export function ModelVoting({modelId, onNewPoints, availablePoints, onVoted}) {
     const modelName = modelConfig[modelId]?.name;
     const [votes, setVotes] = useState(0);
     const [voteCount, setVoteCount] = useState(0);
     const [animatedVotes, setAnimatedVotes] = useState([]);
 
     const voteCallback = useCallback((voteValue) => {
+        if (availablePoints <= 9) return;
+        onVoted();
         const modelRef = ref(database, `votes/${modelId}`);
         push(modelRef, voteValue);
-    }, [modelId]);
+    }, [modelId, availablePoints]);
 
     useEffect(() => {
         const modelRef = ref(database, `votes/${modelId}`);

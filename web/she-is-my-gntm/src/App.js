@@ -1,5 +1,5 @@
 import './App.css';
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {ModelVoting} from "./ModelVoting";
 import {modelConfig} from "./modelConfig";
 
@@ -7,6 +7,9 @@ const models = Object.keys(modelConfig);
 
 function App() {
     const [modelPoints, setModelPoints] = useState(models.reduce((a, b) => ({...a, [b]: 0}), {}));
+    const [availableVotes, setAvailableVotes] = useState(0);
+
+    const sliderArrow = useRef();
 
     const animationCallback = useCallback(() => {
         const votingEl = document.getElementsByClassName('voting')[0];
@@ -28,11 +31,22 @@ function App() {
         setModelPoints(state => ({...state, [modelId]: points}));
     }, []);
 
+    useEffect(() => {
+        const id = setInterval(() => setAvailableVotes(s => s + 1), 500);
+        return () => clearInterval(id);
+    }, []);
+
+    const onVoted = useCallback(() => setAvailableVotes(s => s - 10), []);
+
     const modelRanking = useMemo(() => Object.entries(modelPoints).sort((a, b) => b[1] - a[1]), [modelPoints]);
 
     return (
         <div className="wrapper">
-            <div></div>
+            <section className="top-row">
+                <div className="vote-counter">
+                    {availableVotes}
+                </div>
+            </section>
 
             {/*<section className="header">*/}
             {/*    <h1>*/}
@@ -42,11 +56,20 @@ function App() {
             {/*</section>*/}
 
             <section className="slider">
-                <div className="slider-line"></div>
+                <div className="slider-container">
+                    <div className="slider-arrow" ref={sliderArrow}></div>
+                    <div className="slider-line"></div>
+                </div>
             </section>
 
             <section className="voting">
-                {models.map((modelId) => <ModelVoting onNewPoints={onNewPoints} key={modelId} modelId={modelId}/>)}
+                {models.map((modelId) =>
+                    <ModelVoting
+                        onVoted={onVoted}
+                        availablePoints={availableVotes}
+                        onNewPoints={onNewPoints}
+                        key={modelId}
+                        modelId={modelId}/>)}
             </section>
 
             <section className="ranking">

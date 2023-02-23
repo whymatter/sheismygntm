@@ -64,19 +64,59 @@ h1 .header-gntm {
     grid-template-rows: max-content 4rem 100vw 1fr;
 }
 
+section.top-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    padding: 1rem 1rem 0 2rem;
+}
+
+.vote-counter {
+    background-color: crimson;
+    color: white;
+    font-size: 1rem;
+    padding: 0.125rem 0.125rem;
+    width: 4rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    border-radius: 5px;
+    text-align: right;
+    vertical-align: middle;
+    line-height: 1.25rem;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .5);
+}
+
 section.header {
 
 }
 
 section.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
 
+.slider-container {
+    margin: 0 auto;
+    position: relative;
+    width: 80vw;
 }
 
 .slider-line {
-    margin: 0 auto;
+    --width: calc(100% - 2rem);
     height: 1px;
-    width: 80vw;
+    width: var(--width);
+    margin: 0 auto;
     background: rgba(255, 255, 255, 0.65);
+}
+
+.slider-arrow {
+    background: url('/public/icons/caret-down-solid.svg') no-repeat center;
+    color: rgba(255, 255, 255, 0.65);
+    width: 2rem;
+    height: 2rem;
+    transition: .5s ease-in-out;
 }
 
 section.voting {
