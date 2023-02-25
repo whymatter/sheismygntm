@@ -68,8 +68,14 @@ section.top-row {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: end;
+    justify-content: space-between;
     padding: 1rem 1rem 0 2rem;
+}
+
+.help-link {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 400;
 }
 
 .vote-counter {
@@ -112,11 +118,28 @@ section.slider {
 }
 
 .slider-arrow {
+    position: relative;
+    --model-points: 0;
     background: url('/public/icons/caret-down-solid.svg') no-repeat center;
     color: rgba(255, 255, 255, 0.65);
     width: 2rem;
     height: 2rem;
-    transition: .5s ease-in-out;
+    left: calc(var(--model-points) / 10 * (100% - 2rem) + 1rem);
+    transform: translateX(-50%);
+    transition: .5s ease-out;
+    color: hsl(calc(var(--model-points) / 10 * 110), 100%, 44%);
+}
+
+.slider-arrow:after {
+    content: attr(data-model-points);
+    position: absolute;
+    color: currentColor;
+    font-size: 2rem;
+    font-weight: 600;
+    top: calc(-100% + .5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: 0 0 10px rgba(0, 0, 0, .1);
 }
 
 section.voting {
@@ -382,4 +405,32 @@ section.ranking {
         transform: scale(1) translateY(-20rem);
         opacity: 0;
     }
+}
+
+.how-does-it-work {
+    margin: 4rem 2rem;
+}
+
+.how-does-it-work section {
+    padding: 2rem;
+    background: rgba(255, 255, 255, .45);
+    border-radius: 2rem;
+    box-shadow: 0 0 40px 0 rgba(40, 40, 40, .2);
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.how-does-it-work section:last-of-type {
+    background: rgba(0, 224, 255, 0.45);
+    box-shadow: 0 0 40px 0 rgba(40, 40, 40, .2),
+    inset 10px 10px 20px 0 rgba(255, 255, 255, .4);
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    animation: breathing 2s ease-in-out infinite normal;
+}
+
+.how-does-it-work section p:last-of-type {
+    font-size: 1rem;
 }

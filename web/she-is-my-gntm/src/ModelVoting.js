@@ -11,7 +11,7 @@ export function ModelVoting({modelId, onNewPoints, availablePoints, onVoted}) {
     const [animatedVotes, setAnimatedVotes] = useState([]);
 
     const voteCallback = useCallback((voteValue) => {
-        if (availablePoints <= 9) return;
+        if (availablePoints <= 0) return;
         onVoted();
         const modelRef = ref(database, `votes/${modelId}`);
         push(modelRef, voteValue);
