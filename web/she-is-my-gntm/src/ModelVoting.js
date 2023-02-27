@@ -4,21 +4,66 @@ import {database} from "./firebaseInit";
 import {ref, push, onChildAdded, limitToLast, query, get} from "firebase/database";
 import {AnimatedVote} from "./AnimatedVote";
 
+/* For a given date, get the ISO week number
+ *
+ * Based on information at:
+ *
+ *    THIS PAGE (DOMAIN EVEN) DOESN'T EXIST ANYMORE UNFORTUNATELY
+ *    http://www.merlyn.demon.co.uk/weekcalc.htm#WNR
+ *
+ * Algorithm is to find nearest thursday, it's year
+ * is the year of the week number. Then get weeks
+ * between that date and the first day of that year.
+ *
+ * Note that dates in one year can be weeks of previous
+ * or next year, overlap is up to 3 days.
+ *
+ * e.g. 2014/12/29 is Monday in week  1 of 2015
+ *      2012/1/1   is Sunday in week 52 of 2011
+ */
+function getWeekNumber(d) {
+    // Copy date so don't modify original
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    // Set to the nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+    // Get first day of year
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    // Calculate full weeks to the nearest Thursday
+    const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    // Return array of year and week number
+    return weekNo;
+}
+
+function convertDateToUTC(date) {
+    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+}
+
+function getCurrentWeek() {
+    const now = new Date();
+    const nowUtc = convertDateToUTC(now);
+    const hour = nowUtc.getHours();
+    const weekDay = nowUtc.getDay();
+    const weekNum = getWeekNumber(nowUtc);
+    return weekNum - 7 + (weekDay >= 4 && hour >= 18 ? 1 : 0);
+}
+
 export function ModelVoting({modelId, onNewPoints, availablePoints, onVoted}) {
     const modelName = modelConfig[modelId]?.name;
     const [votes, setVotes] = useState(0);
     const [voteCount, setVoteCount] = useState(0);
     const [animatedVotes, setAnimatedVotes] = useState([]);
+    const [week, setWeek] = useState(getCurrentWeek());
 
     const voteCallback = useCallback((voteValue) => {
         if (availablePoints <= 0) return;
         onVoted();
-        const modelRef = ref(database, `votes/${modelId}`);
+        const modelRef = ref(database, `votes/${modelId}/${week}`);
         push(modelRef, voteValue);
     }, [modelId, availablePoints]);
 
     useEffect(() => {
-        const modelRef = ref(database, `votes/${modelId}`);
+        const modelRef = ref(database, `votes/${modelId}/${week}`);
 
         get(modelRef).then(value => {
             if (value == null || !value.exists()) return;
@@ -39,7 +84,7 @@ export function ModelVoting({modelId, onNewPoints, availablePoints, onVoted}) {
         return () => {
             clean();
         };
-    }, [modelId]);
+    }, [modelId, week]);
 
     useEffect(() => {
         const points = voteCount === 0 ? 0 :
@@ -51,6 +96,7 @@ export function ModelVoting({modelId, onNewPoints, availablePoints, onVoted}) {
     useEffect(() => {
         const id = setInterval(() => {
             setAnimatedVotes(state => state.filter(o => Date.now() - o.timestamp <= 5000));
+            setWeek(getCurrentWeek());
         }, 1000);
         return () => clearInterval(id);
     }, []);

@@ -59,7 +59,7 @@ function App() {
             {isHelp ? <HowDoesItWork/> :
                 <div className="wrapper">
                     <section className="top-row">
-                        <a className="help-link" href="/how">Was ist das?</a>
+                        <a className="help-link" href="/how">?</a>
                         <div className="vote-counter">
                             {availableVotes}
                         </div>
