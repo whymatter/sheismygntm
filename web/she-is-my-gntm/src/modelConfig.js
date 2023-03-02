@@ -14,6 +14,9 @@ export const modelConfig = {
     "eliz": {
         "name": "Eliz",
     },
+    "elsa": {
+        "name": "Elsa",
+    },
     "emilia": {
         "name": "Emilia",
     },
@@ -34,5 +37,41 @@ export const modelConfig = {
     },
     "leona": {
         "name": "Leona",
+    },
+    "melina": {
+        "name": "Melina",
+    },
+    "melissa": {
+        "name": "Melissa",
+    },
+    "mirella": {
+        "name": "Mirella",
+    },
+    "nina": {
+        "name": "Nina",
+    },
+    "olivia": {
+        "name": "Olivia",
+    },
+    "sarah": {
+        "name": "Sarah",
+    },
+    "selma": {
+        "name": "Selma",
+    },
+    "slata": {
+        "name": "Slata",
+    },
+    "somajia": {
+        "name": "Somajia",
+    },
+    "tracy": {
+        "name": "Tracy",
+    },
+    "vivien": {
+        "name": "Vivien",
+    },
+    "zoey": {
+        "name": "Zoey",
     },
 };
